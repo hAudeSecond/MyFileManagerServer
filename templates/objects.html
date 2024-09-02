@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objects in {{ bucket_name }}</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">S3 Bucket Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ url_for('logout') }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left Column: Forms -->
+            <div class="col-md-4">
+                <h2 class="mb-4">Manage {{ bucket_name }}</h2>
+
+                <!-- Upload File Form -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload a File</h5>
+                        <form action="{{ url_for('objects', bucket_name=bucket_name) }}" method="POST"
+                            enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="file" name="file" class="form-control-file">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Create Folder Form -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Create a Folder</h5>
+                        <form action="{{ url_for('objects', bucket_name=bucket_name) }}" method="POST"
+                            autocomplete="off">
+                            <div class="form-group">
+                                <input type="text" name="folder" placeholder="Folder name" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Create Folder</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: List of Objects -->
+            <div class="col-md-8">
+                <h3 class="mb-3">Objects:</h3>
+                <ul class="list-group">
+                    {% for obj in objects %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% if obj['Key'].endswith('/') %}
+                        <i class="fas fa-folder"></i> <!-- Biểu tượng thư mục -->
+                        <a href="{{ url_for('folder', bucket_name=bucket_name, folder_name=obj['Key']) }}">{{
+                            obj['Key'].split('/')[-2] }}</a>
+                        <span>
+                            <form
+                                action="{{ url_for('delete_folder', bucket_name=bucket_name, folder_name=obj['Key']) }}"
+                                method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete Folder</button>
+                            </form>
+                        </span>
+                        {% else %}
+                        <i class="fas fa-file"></i> <!-- Biểu tượng tệp -->
+                        {{ obj['Key'] }}
+                        <span class="badge badge-info badge-pill">{{ obj['Size'] | filesizeformat }}</span>
+                        <!-- Hiển thị kích thước -->
+                        <span class="badge badge-light">{{ obj['LastModified'].strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                        <!-- Hiển thị thời gian upload -->
+                        <span>
+                            <form action="{{ url_for('delete', bucket_name=bucket_name, object_key=obj['Key']) }}"
+                                method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                            <a href="{{ url_for('download', bucket_name=bucket_name, object_key=obj['Key']) }}"
+                                class="btn btn-secondary btn-sm">Download</a>
+                        </span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

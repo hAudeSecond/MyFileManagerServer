@@ -1,0 +1,134 @@
+body {
+    background-color: #FFA500;
+    /* Màu nền cam */
+    color: #fff;
+    /* Màu chữ trắng */
+    font-family: Arial, sans-serif;
+    /* Phông chữ */
+    margin: 0;
+    /* Bỏ khoảng cách mặc định */
+    padding: 20px;
+    /* Padding cho toàn bộ trang */
+}
+
+h1,
+
+h2 {
+    text-align: center;
+    /* Căn giữa tiêu đề */
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    /* Bỏ dấu chấm đầu dòng */
+    padding: 0;
+    /* Bỏ padding mặc định */
+}
+
+h3 {
+    color: #333;
+}
+
+li {
+    margin: 10px 0;
+    /* Khoảng cách giữa các mục */
+    padding: 10px;
+    /* Padding cho mỗi mục */
+    background-color: #fff;
+    /* Màu nền trắng cho mỗi mục */
+    color: #333;
+    /* Màu chữ tối */
+    border-radius: 5px;
+    /* Bo góc cho mỗi mục */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển màu khi hover */
+}
+
+li:hover {
+    background-color: #e0e0e0;
+    /* Màu nền khi hover */
+}
+
+button {
+    background-color: #333;
+    /* Màu nền nút tối */
+    color: #fff;
+    /* Màu chữ nút trắng */
+    border: none;
+    /* Bỏ viền */
+    padding: 10px 15px;
+    /* Padding cho nút */
+    border-radius: 5px;
+    /* Bo góc cho nút */
+    cursor: pointer;
+    /* Con trỏ khi hover */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển màu khi hover */
+}
+
+button:hover {
+    background-color: #555;
+    /* Màu nền nút khi hover */
+}
+
+form {
+    text-align: center;
+    /* Căn giữa form */
+    margin: 20px 0;
+    /* Khoảng cách trên và dưới form */
+    color: #333;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+/* Custom Card Styling */
+.card {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* List Group Styling */
+.list-group-item {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
